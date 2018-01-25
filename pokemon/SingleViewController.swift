@@ -37,6 +37,7 @@ class SingleViewController: UIViewController {
             typeLabel.text = myPokemon.type
             weightLabel.text = String(myPokemon.weight)
             numberLabel.text = String(myPokemon.number)
+            self.title = myPokemon.name
         }
 
     }

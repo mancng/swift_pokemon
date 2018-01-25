@@ -21,13 +21,7 @@ class MainTableViewController: UITableViewController, AddViewControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchAndReload()
-//
-//        if String(describing: currentType) == "Fire" {
-//
-//            cell.backgroundColor = UIColor.blue
-//            print("Current type: \(currentType)")
-//        }
-        
+        self.title = "Pokemon"
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +39,7 @@ class MainTableViewController: UITableViewController, AddViewControllerDelegate,
             let typeTableViewController = segue.destination as! TypeTableViewController
             typeTableViewController.delegate = self
             typeTableViewController.newArray = pokemonByType
+            typeTableViewController.typeName = currentPokemonType
         }
     }
     
@@ -90,7 +85,6 @@ class MainTableViewController: UITableViewController, AddViewControllerDelegate,
     func fetchPokemonByType() {
         do {
             let request: NSFetchRequest<Pokemons> = Pokemons.fetchRequest()
-            print(currentPokemonType)
             request.predicate = NSPredicate(format: "type CONTAINS %@", currentPokemonType)
             let results = try managedObjectContext.fetch(request) as [Pokemons]
             pokemonByType = results
@@ -120,6 +114,43 @@ class MainTableViewController: UITableViewController, AddViewControllerDelegate,
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainCell", for: indexPath)
         let currentType = storedType[indexPath.row]
+        
+        if let finalType = currentType as! NSString? {
+            if finalType == "Fire" {
+                cell.backgroundColor = UIColor.orange
+            } else if finalType == "Electric" {
+                cell.backgroundColor = UIColor.yellow
+            } else if finalType == "Grass" {
+                cell.backgroundColor = UIColor.green
+            } else if finalType == "Poison" {
+                cell.backgroundColor = UIColor.purple
+            } else if finalType == "Bug" {
+                cell.backgroundColor = UIColor.green
+            } else if finalType == "Dragon" {
+                cell.backgroundColor = UIColor.purple
+            } else if finalType == "Steel" {
+                cell.backgroundColor = UIColor.lightGray
+            } else if finalType == "Ice" {
+                cell.backgroundColor = UIColor.blue
+            } else if finalType == "Flying" {
+                cell.backgroundColor = UIColor.purple
+            } else if finalType == "Fairy" {
+                cell.backgroundColor = UIColor.red
+            } else if finalType == "Ghost" {
+                cell.backgroundColor = UIColor.darkGray
+            } else if finalType == "Fighting" {
+                cell.backgroundColor = UIColor.red
+            } else if finalType == "Psychic" {
+                cell.backgroundColor = UIColor.red
+            } else if finalType == "Water" {
+                cell.backgroundColor = UIColor.blue
+            } else if finalType == "Dark" {
+                cell.backgroundColor = UIColor.brown
+            } else if finalType == "Ground" {
+                cell.backgroundColor = UIColor.lightGray
+            }
+        }
+        
         cell.textLabel?.text = String(describing: currentType!)
         return cell
     }

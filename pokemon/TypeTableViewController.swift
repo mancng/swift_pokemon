@@ -17,14 +17,14 @@ class TypeTableViewController: UITableViewController, SingleViewControllerDelega
     
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var value: String!
-    var getPassedValue = ""
+    var typeName: String!
     var newArray = [Pokemons]()
     var singlePokemon = Pokemons()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
+        self.title = typeName
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,10 +45,9 @@ class TypeTableViewController: UITableViewController, SingleViewControllerDelega
 
         // Remove the pokemon from newArray
         let index = newArray.index(of: singlePokemon)
-        print("INDEX: \(String(describing: index))")
         newArray.remove(at: index!)
 
-        // Remove the pokemon from storedData as well as core database
+        // Remove the pokemon from storedData and save changes in core database
         managedObjectContext.delete(pokemonToDelete!)
         do {
             try managedObjectContext.save()
@@ -77,6 +76,4 @@ class TypeTableViewController: UITableViewController, SingleViewControllerDelega
         singlePokemon = newArray[indexPath.row] as Pokemons
         performSegue(withIdentifier: "ShowSingleSegue", sender: indexPath)
     }
-
-
 }

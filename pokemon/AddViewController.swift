@@ -29,13 +29,14 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func catchBtnPressed(_ sender: UIButton) {
-        let name = nameTextField.text!
-        let type = typeTextField.text!
-        let weight = Double(weightTextField.text!)
-        let number = Int(numberTextField.text!)
-    
         
-        delegate?.addPokemon(by: self, name: name, type: type, weight: weight, number: number)
+        if nameTextField.text != "" && typeTextField.text != "" && weightTextField.text != "" && numberTextField.text != "" {
+            let name = nameTextField.text!
+            let type = typeTextField.text!
+            let weight = Double(weightTextField.text!)
+            let number = Int(numberTextField.text!)
+            delegate?.addPokemon(by: self, name: name, type: type, weight: weight, number: number)
+        }
     }
     
     
